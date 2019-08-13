@@ -1,0 +1,18 @@
+
+import pandas as pd
+from alpha_vantage.timeseries import TimeSeries
+
+api_key = 'QWYIM8PV23DY5BE9';
+
+ts = TimeSeries(key = api_key,output_format = 'pandas');
+symbol = 'INFY';
+
+try:
+    data = ts.get_daily(symbol="NSE:"+symbol, outputsize = 'full');
+    df = pd.DataFrame(data);
+    df = df.rename(columns = {'1. Open ':'open', '2. High ': 'high', '3. Low ':'low', '4. Close': 'close', '5. Volume': 'volume'}, inplace = True);
+    df.to_csv('test.csv',sep = ',');
+except:
+    print("No data for : "+symbol);
+    
+        
